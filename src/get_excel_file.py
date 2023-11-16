@@ -19,12 +19,18 @@ def main() -> None:
 
     if count_object > 0:
         print(f'{IND} count_object: {Fore.YELLOW}{count_object}')
+
         result_path_file = Path(f'{ABS_PATH}/{RESULT_DIR}/{excel_file}')
-        wb.save(result_path_file)
+
+        if result_path_file.parent.exists():
+            wb.save(result_path_file)
+        else:
+            print(f'{IND} {Fore.RED}excel file not saved')
+            print(f'{IND} {Fore.RED}result folder not exist: [{result_path_file.parent}]')
 
         print(f'{IND} file saved: {result_path_file.parent}/{Fore.GREEN}{result_path_file.name}')
     else:
-        print(f'{IND} {Fore.RED} objects not found for export')
+        print(f'{IND} {Fore.RED}objects not found for export')
 
 
 if __name__ == "__main__":

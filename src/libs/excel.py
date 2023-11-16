@@ -2,6 +2,7 @@
 from asyncio.log import logger
 from colorama import Fore
 import openpyxl
+from config import IND
 
 from database.database import session_maker
 from database.models import ObjectDB
@@ -23,10 +24,10 @@ def get_excel_file(excel_work_book: openpyxl.Workbook, excel_list_name: str) -> 
             object_field_list = dict(object_list[0].__table__.columns).keys()
 
             # insert header column
-            column = 1
+            number_column = 1
             for field in object_field_list:
-                sheet.cell(row=1, column=column).value = field
-                column += 1
+                sheet.cell(row=1, column=number_column).value = field
+                number_column += 1
 
             # insert data of objects
             number_row = 2
@@ -42,6 +43,6 @@ def get_excel_file(excel_work_book: openpyxl.Workbook, excel_list_name: str) -> 
             return number_row - 2
 
     except Exception as e:
-        print(f'{Fore.RED} get_excel_file -> error: {e}')
+        print(f'{IND} {Fore.RED}get_excel_file -> error: {e}')
         logger.error(f'get_excel_file -> error: {e}')
         return 0
